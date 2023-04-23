@@ -7,7 +7,7 @@ const userUpdate = async (ctx) => {
   const user = db.find((elem) => elem.id === Number(id));
 
   if (user) {
-    // user. = user;
+    // ver como bloquear alteração de id e cpf
     ctx.status = 200;
   } else {
     ctx.body = "User not found!";

@@ -38,7 +38,7 @@ router
 koa.use(router.routes()).use(router.allowedMethods());
 
 const server = koa.listen(PORT, () => {
-  console.log(`Server is running at "http://localhost:${PORT}"`);
+  console.log(`Server is running at "http://localhost:${PORT}"!`);
 });
 
 module.exports = { server, router };
