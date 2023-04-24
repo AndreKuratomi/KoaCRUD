@@ -5,7 +5,7 @@ Usando o NodeJs, Koa, Mocha e Chai, fazer uma API que permita:
 ● Adicionar, editar, listar e remover usuários.
 ● Como bônus, a lista de usuário pode permitir paginação. (Não é necessário, é bônus.)
 
-O projeto base já possui boa parte da implementação pronta, incluindo alguns testes de unidade Não é necessário conexão com nenhuma base de dados, tudo pode rodar em memória.
+O projeto base já possui boa parte da implementação pronta, incluindo alguns testes de unidade. Não é necessário conexão com nenhuma base de dados, tudo pode rodar em memória.
 
 ● Como bônus, pode ser adicionado suporte ao banco de dados SQLite.(Não é necessário, é bônus)
 
