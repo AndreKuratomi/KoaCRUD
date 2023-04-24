@@ -1,36 +1,35 @@
 const db = require("../config/db");
 
 const userCreation = async (ctx) => {
-  const toBeAdded = ctx.request.body;
+  try {
+    const { nome, cpf, email } = ctx.request.body;
 
-  const { id, nome, cpf, email } = ctx.request.body;
+    // VALIDATION
+    if (!cpf) {
+      ctx.body = 'Missing field "cpf"!';
+      ctx.status = 400;
+      return;
+    } else if (!email) {
+      ctx.body = 'Missing field "email"!';
+      ctx.status = 400;
+      return;
+    } else if (!nome) {
+      ctx.body = 'Missing field "nome"!';
+      // ctx.body = `Missing field "${}"!`; AUTOMATIZE!
+      ctx.status = 400;
+      return;
+    }
 
-  if (!nome) {
-    // ctx.body = `Missing field "${}"!`;
-    ctx.body = 'Missing field "nome"!';
+    const query = "INSERT INTO users (cpf, email, nome) VALUES (?, ?, ?)";
+    const params = [cpf, email, nome];
+    const result = db.run(query, params);
+    console.log(result);
+    ctx.body = { message: "Data added successfully!", content: result };
+    ctx.status = 201;
+  } catch (error) {
+    ctx.body = { message: error.message };
     ctx.status = 400;
-    return;
-  } else if (!cpf) {
-    // ctx.body = `Missing field "${}"!`;
-    ctx.body = 'Missing field "cpf"!';
-    ctx.status = 400;
-    return;
-  } else if (!id) {
-    // ctx.body = `Missing field "${}"!`;
-    ctx.body = 'Missing field "id"!';
-    ctx.status = 400;
-    return;
-  } else if (!email) {
-    // ctx.body = `Missing field "${}"!`;
-    ctx.body = 'Missing field "email"!';
-    ctx.status = 400;
-    return;
   }
-
-  db.push(toBeAdded);
-
-  ctx.body = "Data added successfully!";
-  ctx.status = 201;
 };
 
 module.exports = userCreation;
