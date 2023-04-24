@@ -13,6 +13,7 @@ const dotenv = require("dotenv");
 const Koa = require("koa");
 const Router = require("koa-router");
 const bodyParser = require("koa-bodyparser");
+// const bodyParser = require("koa-body");
 
 const userCreation = require("./controllers/userAddition");
 const usersList = require("./controllers/usersList");

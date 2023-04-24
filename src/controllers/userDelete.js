@@ -1,16 +1,16 @@
 const db = require("../config/db");
 
 const userDelete = async (ctx) => {
-  // try {
-  const { id } = ctx.params;
+  try {
+    const { id } = ctx.params;
 
-  const user = db.find((elem) => elem.id === Number(id));
+    const query = `DELETE FROM users WHERE id = ${id}`;
+    const result = db.run(query);
+    console.log(result);
 
-  if (user) {
-    delete db[user];
-    console.log(db);
     ctx.status = 204;
-  } else {
+  } catch (error) {
+    console.log(error);
     ctx.body = "User not found!";
     ctx.status = 404;
   }
