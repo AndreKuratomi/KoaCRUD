@@ -12,7 +12,6 @@ const db = new sqlite3.Database("./src/config/database.sqlite", (err) => {
         nome TEXT NOT NULL
     )`
   );
-  // console.log(db);
 });
 
 module.exports = db;
