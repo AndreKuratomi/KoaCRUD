@@ -2,10 +2,14 @@ const db = require("../config/db");
 
 const userCreation = async (ctx) => {
   try {
-    const { nome, cpf, email } = ctx.request.body;
+    const { nome, cpf, email, age } = ctx.request.body;
 
     // VALIDATION
-    if (!cpf) {
+    if (!age) {
+      ctx.body = 'Missing field "age"!';
+      ctx.status = 400;
+      return;
+    } else if (!cpf) {
       ctx.body = 'Missing field "cpf"!';
       ctx.status = 400;
       return;
@@ -20,8 +24,14 @@ const userCreation = async (ctx) => {
       return;
     }
 
-    const query = "INSERT INTO users (cpf, email, nome) VALUES (?, ?, ?)";
-    const params = [cpf, email, nome];
+    const query =
+      "INSERT INTO users (age, cpf, email, nome) VALUES (?, ?, ?, ?)";
+    const params = [age, cpf, email, nome];
+    if (age < 18) {
+      ctx.body = { message: "Unauthorized! Users under 18 are not allowed." };
+      ctx.status = 403;
+      return;
+    }
     db.run(query, params); //fazer uma callback para exibir o que foi atualizado?
     ctx.body = { message: "Data added successfully!" };
     ctx.status = 201;
