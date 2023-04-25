@@ -22,11 +22,12 @@ const userCreation = async (ctx) => {
 
     const query = "INSERT INTO users (cpf, email, nome) VALUES (?, ?, ?)";
     const params = [cpf, email, nome];
-    const result = db.run(query, params);
-    console.log(result);
-    ctx.body = { message: "Data added successfully!", content: result };
+    db.run(query, params);
+    // get para pegar o cadastrado?
+    ctx.body = { message: "Data added successfully!" };
     ctx.status = 201;
   } catch (error) {
+    console.log(error);
     ctx.body = { message: error.message };
     ctx.status = 400;
   }
