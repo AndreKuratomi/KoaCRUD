@@ -22,8 +22,7 @@ const userCreation = async (ctx) => {
 
     const query = "INSERT INTO users (cpf, email, nome) VALUES (?, ?, ?)";
     const params = [cpf, email, nome];
-    db.run(query, params);
-    // get para pegar o cadastrado?
+    db.run(query, params); //fazer uma callback para exibir o que foi atualizado?
     ctx.body = { message: "Data added successfully!" };
     ctx.status = 201;
   } catch (error) {
