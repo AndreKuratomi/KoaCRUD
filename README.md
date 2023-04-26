@@ -10,7 +10,7 @@
 
 # Descrição
 
-<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong> e o banco de dados <strong>SQLite3</strong></p>
+<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong> e o banco de dados <strong>SQLite3</strong>.</p>
 <br>
 
 # Instalação
