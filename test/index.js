@@ -27,9 +27,7 @@ chai.use(chaiJson);
 const expect = chai.expect;
 const server = app.server;
 
-//Inicio dos testes
-
-//este teste é simplesmente pra enteder a usar o mocha/chai
+//TESTES PRELIMINARES:
 describe("Um simples conjunto de testes sobre 'userSchema'.", function () {
   it("deveria retornar o tipo da variável", function () {
     assert.equal(typeof userSchema, "object");
@@ -51,7 +49,7 @@ describe("Um simples conjunto de testes sobre 'userSchema'.", function () {
   });
 });
 
-//testes da aplicação
+//TESTES DA APLICAÇÃO:
 describe("Testes da aplicação", () => {
   it("o servidor está online", function (done) {
     chai
@@ -210,26 +208,21 @@ describe("Testes da aplicação", () => {
       });
   });
 
-  //   it("verifica se a idade de Estévez foi atualizada", function (done) {
-  //     // let awaitTest = await new Promise(
-  //     chai
-  //       .request(server)
-  //       .keepOpen()
-  //       .get("/users/2")
-  //       // );
-  //       .end(function (err, res) {
-  //         expect(err, null);
-  //         expect(res.status, 200);
-  //         console.log(res.body);
-  //         // expect(res.body[0].age, 36);
-
-  //         // expect(res.body, estevezFound);
-  //         // console.log(awaitTest);
-  //         // expect(awaitTest.status).to.equal(200);
-  //         // expect(awaitTest.body.age).to.equal(36);
-  //         done();
-  //       });
-  //   });
+  it("verifica se a idade de Estévez foi atualizada", function () {
+    let awaitFunction = async function () {
+      await new Promise(
+        chai
+          .request(server)
+          .keepOpen()
+          .get("/users/2")
+          .then(function (err, res) {
+            expect(err, null);
+            expect(res.status, 200);
+            expect(res.body[0].age, 36);
+          })
+      );
+    };
+  });
 
   it("deveria excluir o usuário raupp", function (done) {
     chai
