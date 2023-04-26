@@ -26,7 +26,8 @@ const userByIdList = async (ctx) => {
       });
     });
   } catch (error) {
-    console.log(error);
+    ctx.body = { message: "Invalid Id! Must be a number." };
+    ctx.status = 400;
   }
 };
 
