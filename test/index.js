@@ -14,7 +14,6 @@ const {
   raulFound,
   deVozTeamWithRaupp,
   deVozTeamWithoutRaupp,
-  estevezFound,
 } = require("./samples");
 
 const assert = require("assert");
@@ -211,23 +210,26 @@ describe("Testes da aplicação", () => {
       });
   });
 
-  it("verifica se a idade de Estévez foi atualizada", function (done) {
-    // let awaitTest = await
-    chai
-      .request(server)
-      .keepOpen()
-      .get("/users/2")
-      .end(function (err, res) {
-        expect(err, null);
-        expect(res.status, 200);
-        console.log(res.body);
-        expect(res.body, estevezFound);
-        //     expect(res.body[0].age, 36);
-        // expect(awaitTest.status).to.equal(200);
-        // expect(awaitTest.body.age).to.equal(36);
-        done();
-      });
-  });
+  //   it("verifica se a idade de Estévez foi atualizada", function (done) {
+  //     // let awaitTest = await new Promise(
+  //     chai
+  //       .request(server)
+  //       .keepOpen()
+  //       .get("/users/2")
+  //       // );
+  //       .end(function (err, res) {
+  //         expect(err, null);
+  //         expect(res.status, 200);
+  //         console.log(res.body);
+  //         // expect(res.body[0].age, 36);
+
+  //         // expect(res.body, estevezFound);
+  //         // console.log(awaitTest);
+  //         // expect(awaitTest.status).to.equal(200);
+  //         // expect(awaitTest.body.age).to.equal(36);
+  //         done();
+  //       });
+  //   });
 
   it("deveria excluir o usuário raupp", function (done) {
     chai

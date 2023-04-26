@@ -5,10 +5,11 @@ const userUpdate = async (ctx) => {
     const { id } = ctx.params;
     const { age, email } = ctx.request.body;
 
+    // QUERIES:
     const findQuery = `SELECT * FROM users WHERE id = ${id}`;
     const updateQuery0 = "UPDATE users SET ";
 
-    // QUERY FOR ALTERNATIVE UPDATE:
+    // QUERIES FOR ALTERNATIVE UPDATE:
     let updateQueryAge = "";
     if (!age) {
       updateQueryAge = "";
@@ -37,7 +38,7 @@ const userUpdate = async (ctx) => {
       updateQueryEmail +
       updateQuery2;
 
-    console.log(updateQuery);
+    // console.log(updateQuery);
     const doWeHaveThisUser = await new Promise((resolve, reject) => {
       db.all(findQuery, (err, rows) => {
         if (err) {
