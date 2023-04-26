@@ -1,0 +1,304 @@
+openapi: 3.0.3
+info:
+  title: Ozmap
+  description: >-
+    Ozmap é uma API que faz o gerenciamento de usuários. Seus registros,
+    listagens, atualizações e deleções. Esta aplicação usa o framework Koa.js e
+    o banco de dados SQLite3.
+  contact:
+    name: API Support
+    url: https://github.com/AndreKuratomi
+    email: andrekuratomi@gmail.com
+  version: '2.0'
+servers:
+  - url: http://localhost:3000
+    description: Local server
+tags:
+  - name: user
+    description: Everything related to a single User. Creation, List, Update and Delete.
+  - name: users
+    description: All users list.
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Registers a user.
+      description: Registers a user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterRequest'
+            examples:
+              user:
+                value:
+                  age: '32'
+                  cpf: '00000000000'
+                  email: joao.silva@mail.com
+                  nome: João da Silva
+              userWithErrors:
+                value:
+                  cpf: '00000000000'
+                  email: joao.silva@mail.com
+                  nome: João da Silva
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                user:
+                  value:
+                    message: Data added successfully!
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                user:
+                  value:
+                    message:
+                      ValidationError:
+                        - Missing filed 'age'!
+        '403':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                user:
+                  value:
+                    message: Unauthorized! Users under 18 are not allowed.
+  /users:
+    get:
+      tags:
+        - users
+      summary: Lists all users
+      description: Lists all users.
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/UsersListResponse'
+              example:
+                users:
+                  value:
+                    - id: 1
+                      age: 32
+                      cpf: '00000000000'
+                      email: joao.silva@mail.com
+                      nome: João da Silva
+  /user/{user_id}:
+    get:
+      tags:
+        - user
+      summary: Lists a specific user by its id.
+      description: Lists a specific user by its id.
+      deprecated: false
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/OneUserListResponse'
+              examples:
+                user:
+                  value:
+                    - id: 1
+                      age: 32
+                      cpf: '00000000000'
+                      email: joao.silva@mail.com
+                      nome: João da Silva
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                User not found:
+                  value:
+                    message: Invalid Id! Must be a number.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                User not found:
+                  value:
+                    message: User not found!
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Method Not Allowed:
+                  value:
+                    message: Method Not Allowed
+    patch:
+      tags:
+        - user
+      summary: Updates a specific user data by its id.
+      description: Updates a specific user data by its id.
+      deprecated: false
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: '#/components/schemas/UpdateUserRequest'
+            examples:
+              product:
+                value:
+                  age: 33
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: User successfully updated!
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                User not found:
+                  value:
+                    message: Invalid Id! Must be a number.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                User not found:
+                  value:
+                    message: User not found!
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Method Not Allowed:
+                  value:
+                    message: Method Not Allowed
+    delete:
+      tags:
+        - user
+      summary: Deletes a specific user by its id.
+      description: Deletes a specific user by its id.
+      deprecated: false
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Ok
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                User not found:
+                  value:
+                    message: Invalid Id! Must be a number.
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                User not found:
+                  value:
+                    message: No user found!
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Method Not Allowed:
+                  value:
+                    message: Method Not Allowed
+components:
+  schemas:
+    UserRegisterRequest:
+      type: object
+      properties:
+        age:
+          type: number
+        cpf:
+          type: string
+        email:
+          type: string
+        nome:
+          type: string
+    UsersListResponse:
+      type: object
+      properties:
+        age:
+          type: number
+        cpf:
+          type: string
+        email:
+          type: string
+        nome:
+          type: string
+    OneUserListResponse:
+      type: object
+      properties:
+        age:
+          type: number
+        cpf:
+          type: string
+        email:
+          type: string
+        nome:
+          type: string
+    UpdateUserRequest:
+      type: object
+      properties:
+        age:
+          type: number

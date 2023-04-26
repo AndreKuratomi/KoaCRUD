@@ -52,7 +52,6 @@ code .
 npm install
 ```
 
-
 <p>E rodar a aplicação:</p>
 
 ```
@@ -138,7 +137,7 @@ Exemplo a ser colocado no body da requisição:
 (Requisição feita sem body)
 ```
 
-Responsta esperada:
+Resposta esperada:
 
 ```
 Status: 200 OK
@@ -270,7 +269,7 @@ Status: 404 NOT FOUND
 - [Mocha](https://mochajs.org/api/mocha)
 - [Chai](https://www.chaijs.com/guide/)
 - [Nodemon](https://nodemon.io/)
-- [Swagger](https://swagger.io/specification/)
+- [Swagger](https://editor.swagger.io/)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
 
 <!--O objetivo do projeto é:

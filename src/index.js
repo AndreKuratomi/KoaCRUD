@@ -8,6 +8,8 @@
 // import dotenv from "dotenv";
 
 const dotenv = require("dotenv");
+const cors = require("@koa/cors");
+
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const { koaSwagger } = require("koa2-swagger-ui");
@@ -19,6 +21,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const koa = new Koa();
 
+koa.use(cors());
 koa.use(bodyParser());
 
 koa.use(router.routes()).use(router.allowedMethods());
