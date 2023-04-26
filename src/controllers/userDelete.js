@@ -6,19 +6,18 @@ const userDelete = async (ctx) => {
 
     const findQuery = `SELECT * FROM users WHERE id = ${id}`;
     const deleteQuery = `DELETE FROM users WHERE id = ${id}`;
-    // const result = db.run(query);
-    // console.log(result);
+
     const doWeHaveThisUser = await new Promise((resolve, reject) => {
       db.all(findQuery, (err, rows) => {
-        if (err) {
+        if (rows == undefined) {
           reject(err);
-          ctx.body = err;
+          ctx.body = { message: "Invalid Id! Must be a number." };
           ctx.status = 400;
           return;
         }
         if (rows.length == 0) {
           reject(rows);
-          ctx.body = "User not found!";
+          ctx.body = { message: "User not found!" };
           ctx.status = 404;
           return;
         }
