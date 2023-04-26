@@ -33,7 +33,7 @@ const userCreation = async (ctx) => {
       return;
     }
 
-    db.run(query, params); //fazer uma callback para exibir o que foi atualizado?
+    db.run(query, params);
 
     ctx.body = { message: "Data added successfully!" };
     ctx.status = 201;
