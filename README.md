@@ -10,7 +10,7 @@
 
 # Descrição
 
-<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong> e o banco de dados <strong>SQLite3</strong></p>
+<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong> e o banco de dados <strong>SQLite3</strong>.</p>
 <br>
 
 # Instalação
@@ -40,23 +40,26 @@ git clone https://github.com/AndreKuratomi/Ozmap.git
 cd Ozmap
 ```
 
-<p>Instalar as dependências:</p>
-
-```
-npm install
-```
-
 <p>Abrir a aplicação no seu IDE:</p>
 
 ```
 code .
 ```
 
+<p>Instalar as dependências:</p>
+
+```
+npm install
+```
+
+
 <p>E rodar a aplicação:</p>
 
 ```
 npm run dev
 ```
+
+<p>A aplicação rodará com o localhost:3000. Adicionar depois deste as rotas e suas terminações, ou endpoints, que veremos a seguir.</p>
 
 <p>Para rodar os testes utilize o seguinte comando:</p>
 
@@ -82,27 +85,13 @@ PORT=port
 
 # Utilização
 
-<p>Antes de passarmos para o API Client precisamos rodar os containers do Docker</p>
-
-```
-docker-compose up --build
-```
-
-<p>Após isto precisamos rodar o script</p>
-
-```
-npm run dev
-```
-
-<p>A aplicação rodará com o <b>localhost:3000</b>. Adicionar depois deste as rotas e suas terminações, ou <b>endpoints</b>, que veremos a seguir.</p>
-
 <p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
 
 <h3>Rotas</h3>
 
-<h4>Cadastro</h4>
+<h4>Cadastro:</h4>
 
-Cadastro de usuários (Método POST): <b>/users</b> (ou localhost:3000/users)
+Cadastro de usuários (Método POST): <b>/user</b> (ou localhost:3000/user)
 
 Exemplo a ser colocado no body da requisição:
 
@@ -149,7 +138,7 @@ Exemplo a ser colocado no body da requisição:
 (Requisição feita sem body)
 ```
 
-Se o usuário do token for administrador ("isAdmin": true) a resposta esperada será:
+Responsta esperada:
 
 ```
 Status: 200 OK
@@ -166,7 +155,7 @@ Status: 200 OK
 ]
 ```
 
-<h4>Listagem de usuário por id</h4>
+<h4>Listagem de usuário por id:</h4>
 
 Listagem dos dados de um usuário (Método GET): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
@@ -197,9 +186,11 @@ Status: 200 OK
 
 <h4>Atualização de usuário:</h4>
 
-Atualização de dados do usuário cadastrado (Método PATCH): <b>/users/id**</b> (ou localhost:3000/users/id**)
+Atualização de dados do usuário cadastrado (Método PATCH): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
 \*\*preencher com o id do usuário anteriormente cadastrado.
+
+Apenas os campos 'age' e 'email' podem ser alterados.
 
 Exemplo a ser colocado no body da requisição:
 
@@ -209,7 +200,7 @@ Exemplo a ser colocado no body da requisição:
 }
 ```
 
-Caso o usuário do token seja o mesmo do id ou for administrador a resposta será:
+Caso o id do usuário esteja registrado no SQLite a resposta será:
 
 ```
 Status: 200 OK
@@ -235,7 +226,7 @@ Status: 404 NOT FOUND
 
 <h4>Deleção de usuário:</h4>
 
-Deleção de usuário cadastrado (Método DELETE): <b>/users/id**</b> (ou localhost:3000/users/id**)
+Deleção de usuário cadastrado (Método DELETE): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
 \*\*preencher com o id do usuário anteriormente cadastrado.
 
@@ -245,7 +236,7 @@ Exemplo a ser colocado no body da requisição:
 (Requsição feita sem body)
 ```
 
-Caso o usuário do token seja o mesmo do id ou for administrador a resposta será:
+Caso o id do usuário esteja registrado no SQLite a resposta será:
 
 ```
 Status: 204 NO CONTENT
