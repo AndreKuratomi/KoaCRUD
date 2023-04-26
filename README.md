@@ -89,7 +89,7 @@ PORT=port
 
 <h3>Rotas</h3>
 
-<h4>Cadastro</h4>
+<h4>Cadastro:</h4>
 
 Cadastro de usuários (Método POST): <b>/user</b> (ou localhost:3000/user)
 
@@ -155,7 +155,7 @@ Status: 200 OK
 ]
 ```
 
-<h4>Listagem de usuário por id</h4>
+<h4>Listagem de usuário por id:</h4>
 
 Listagem dos dados de um usuário (Método GET): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
