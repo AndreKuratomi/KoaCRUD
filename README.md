@@ -138,7 +138,7 @@ Exemplo a ser colocado no body da requisição:
 (Requisição feita sem body)
 ```
 
-Se o usuário do token for administrador ("isAdmin": true) a resposta esperada será:
+Responsta esperada:
 
 ```
 Status: 200 OK
@@ -186,9 +186,11 @@ Status: 200 OK
 
 <h4>Atualização de usuário:</h4>
 
-Atualização de dados do usuário cadastrado (Método PATCH): <b>/users/id**</b> (ou localhost:3000/users/id**)
+Atualização de dados do usuário cadastrado (Método PATCH): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
 \*\*preencher com o id do usuário anteriormente cadastrado.
+
+Apenas os campos 'age' e 'email' podem ser alterados.
 
 Exemplo a ser colocado no body da requisição:
 
@@ -198,7 +200,7 @@ Exemplo a ser colocado no body da requisição:
 }
 ```
 
-Caso o usuário do token seja o mesmo do id ou for administrador a resposta será:
+Caso o id do usuário esteja registrado no SQLite a resposta será:
 
 ```
 Status: 200 OK
@@ -224,7 +226,7 @@ Status: 404 NOT FOUND
 
 <h4>Deleção de usuário:</h4>
 
-Deleção de usuário cadastrado (Método DELETE): <b>/users/id**</b> (ou localhost:3000/users/id**)
+Deleção de usuário cadastrado (Método DELETE): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
 \*\*preencher com o id do usuário anteriormente cadastrado.
 
@@ -234,7 +236,7 @@ Exemplo a ser colocado no body da requisição:
 (Requsição feita sem body)
 ```
 
-Caso o usuário do token seja o mesmo do id ou for administrador a resposta será:
+Caso o id do usuário esteja registrado no SQLite a resposta será:
 
 ```
 Status: 204 NO CONTENT
