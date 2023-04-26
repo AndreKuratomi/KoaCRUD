@@ -53,7 +53,7 @@ const userUpdate = async (ctx) => {
           return;
         }
         resolve(rows);
-        db.run(updateQuery); //fazer uma callback para exibir o que foi atualizado?
+        db.run(updateQuery);
         ctx.body = { message: "User successfully updated!" };
         ctx.status = 200;
         return;
