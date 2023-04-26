@@ -1,7 +1,7 @@
 {
   "info": {
     "title": "Ozmap",
-    "description": "Ozmap é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework Koa.js e o banco de dados SQLite3",
+    "description": "Ozmap é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework Koa.js e o banco de dados SQLite3.",
     "contact": {
       "name": "API Support",
       "url": "https://github.com/AndreKuratomi",
@@ -88,7 +88,7 @@
             }
           },
           "201": {
-            "description": "Ok",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
