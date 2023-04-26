@@ -91,7 +91,7 @@ PORT=port
 
 <h4>Cadastro</h4>
 
-Cadastro de usuários (Método POST): <b>/users</b> (ou localhost:3000/users)
+Cadastro de usuários (Método POST): <b>/user</b> (ou localhost:3000/user)
 
 Exemplo a ser colocado no body da requisição:
 
