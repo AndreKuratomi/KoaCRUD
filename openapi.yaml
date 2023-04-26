@@ -29,7 +29,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRegisterRequest'
+              type: object
+              items:
+                $ref: '#/components/schemas/UserRegisterRequest'
             examples:
               user:
                 value:
@@ -88,7 +90,8 @@ paths:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/UsersListResponse'
+                items:
+                  $ref: '#/components/schemas/UsersListResponse'
               example:
                 users:
                   value:
@@ -117,7 +120,8 @@ paths:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/OneUserListResponse'
+                items:
+                  $ref: '#/components/schemas/OneUserListResponse'
               examples:
                 user:
                   value:
@@ -173,7 +177,8 @@ paths:
           application/json:
             schema:
               type: object
-              $ref: '#/components/schemas/UpdateUserRequest'
+              items:
+                $ref: '#/components/schemas/UpdateUserRequest'
             examples:
               product:
                 value:

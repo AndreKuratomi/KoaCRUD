@@ -1,12 +1,3 @@
-//Voce deve rodar os testes usando:  npm test
-//Para testar a aplicação, rode: npm run dev
-
-//mais infos
-//https://github.com/ZijianHe/koa-router
-
-// todas as configuraçoes devem ser passadas via environment variables
-// import dotenv from "dotenv";
-
 const dotenv = require("dotenv");
 const cors = require("@koa/cors");
 

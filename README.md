@@ -10,7 +10,7 @@
 
 # Descrição
 
-<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong> e o banco de dados <strong>SQLite3</strong>.</p>
+<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong>, o banco de dados <strong>SQLite3</strong> e o documentador de APIs <strong>Swagger</strong>.</p>
 <br>
 
 # Instalação
@@ -257,6 +257,10 @@ Status: 404 NOT FOUND
 }
 ```
 
+<h4>Swagger:</h4>
+
+Exibição da documentação da API via Swagger: <b>/swagger</b> (ou localhost:3000/swagger)
+
 # Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
@@ -291,12 +295,6 @@ DAS AVALIAÇÕES
 
 O projeto será avaliado por:
 
-● Rodar os testes de unidade corretamente.
-● Lógica da aplicação
-● Lógica dos testes
-● Formatação do código e estrutura do projeto
-● As mensagens de commit do git também serão avaliadas caso publicado via git.(bônus)
-● Legibilidade da API e documentação da API (favor salvar o arquivo de api, como api.yaml dentro da raiz do projeto)
 ● Interface gráfica(HTML ou biblioteca)
 ● Beleza (UI/UX) da interface, e uso de CSS
 
