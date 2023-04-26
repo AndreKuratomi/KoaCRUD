@@ -1,0 +1,509 @@
+{
+  "info": {
+    "title": "Ozmap",
+    "description": "Ozmap é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework Koa.js e o banco de dados SQLite3.",
+    "contact": {
+      "name": "API Support",
+      "url": "https://github.com/AndreKuratomi",
+      "email": "andrekuratomi@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server",
+      "port": {
+        "default": "3000"
+      }
+    }
+  ],
+
+  "paths": {
+    "/user": {
+      "post": {
+        "description": "Registers a user.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegisterRequest"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "age": "32",
+                    "cpf": "00000000000",
+                    "email": "joao.silva@mail.com",
+                    "nome": "João da Silva"
+                  }
+                },
+                "userWithErrors": {
+                  "value": {
+                    "cpf": "00000000000",
+                    "email": "joao.silva@mail.com",
+                    "nome": "João da Silva"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "message": {
+                        "ValidationError": ["Missing filed 'age'!"]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "message": "Unauthorized! Users under 18 are not allowed."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "user": {
+                    "value": {
+                      "message": "Data added successfully!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "description": "Lists all users.",
+        "requestBody": {
+          "description": "No content body required",
+          "content": {},
+          "required": false
+        },
+
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/UsersListResponse"
+                },
+                "example": {
+                  "users": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "age": 32,
+                        "cpf": "00000000000",
+                        "email": "joao.silva@mail.com",
+                        "nome": "João da Silva"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{user_id}": {
+      "get": {
+        "description": "Lists a specific user by its id.",
+        "deprecated": false,
+        "tags": [],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "requestBody": {
+          "description": "No content body required"
+        },
+
+        "responses": {
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "Method Not Allowed": {
+                    "value": {
+                      "message": "Method Not Allowed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "User not found": {
+                    "value": {
+                      "message": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "User not found": {
+                    "value": {
+                      "message": "Invalid Id! Must be a number."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/OneUserListResponse"
+                },
+                "examples": {
+                  "user": {
+                    "value": [
+                      {
+                        "id": 1,
+                        "age": 32,
+                        "cpf": "00000000000",
+                        "email": "joao.silva@mail.com",
+                        "nome": "João da Silva"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "Updates a specific user data by its id.",
+        "deprecated": false,
+        "tags": [],
+        "parameters": [
+          {
+            "name": "cart_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "age": 33
+                  }
+                }
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "Method Not Allowed": {
+                    "value": {
+                      "message": "Method Not Allowed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "notFoundCart": {
+                    "value": {
+                      "message": "User not found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "User not found": {
+                    "value": {
+                      "message": "Invalid Id! Must be a number."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "message": "User successfully updated!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a specific user by its id.",
+        "deprecated": false,
+        "tags": [],
+        "parameters": [
+          {
+            "name": "cart_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+
+        "requestBody": {
+          "description": "No content body required",
+          "content": {},
+          "required": false
+        },
+
+        "responses": {
+          "405": {
+            "description": "Method not allowed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "Method Not Allowed": {
+                    "value": {
+                      "message": "Method Not Allowed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "notFoundCart": {
+                    "value": {
+                      "message": "No user found!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "User not found": {
+                    "value": {
+                      "message": "Invalid Id! Must be a number."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Ok",
+            "content": "No content body required"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "UserRegisterRequest": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "number"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "UsersListResponse": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "number"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "UserListResponse": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "number"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+
+  "oauthOptions": {},
+  "swaggerOptions": {
+    "dom_id": "swagger-ui-container",
+    "url": "http://localhost:3000/swagger",
+    "supportedSubmitMethods": ["get", "post", "put", "delete", "patch"],
+    "docExpansion": "none",
+    "jsonEditor": false,
+    "defaultModelRendering": "schema",
+    "showRequestHeaders": false,
+    "swaggerVersion": "^5.7.0",
+    "validatorUrl": null
+  },
+  "routePrefix": "/swagger",
+  "specPrefix": "/swagger/spec",
+  "exposeSpec": true,
+  "hideTopbar": false,
+  "favicon": "/favicon.png",
+  "customCSS": "h1 { color: red }"
+}

@@ -64,16 +64,6 @@ const deVozTeamWithRaupp = [
   },
 ];
 
-const estevezFound = [
-  {
-    id: 2,
-    age: 53,
-    cpf: "00000000002",
-    email: "antonio.estevez@devoz.com.br",
-    nome: "Estévez",
-  },
-];
-
 const deVozTeamWithoutRaupp = [
   {
     id: 2,
@@ -109,6 +99,5 @@ module.exports = {
   userSchema,
   rauppFound,
   deVozTeamWithRaupp,
-  estevezFound,
   deVozTeamWithoutRaupp,
 };

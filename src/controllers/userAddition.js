@@ -19,20 +19,22 @@ const userCreation = async (ctx) => {
       return;
     } else if (!nome) {
       ctx.body = 'Missing field "nome"!';
-      // ctx.body = `Missing field "${}"!`; AUTOMATIZE!
       ctx.status = 400;
       return;
     }
 
     const query =
       "INSERT INTO users (age, cpf, email, nome) VALUES (?, ?, ?, ?)";
+
     const params = [age, cpf, email, nome];
     if (age < 18) {
       ctx.body = { message: "Unauthorized! Users under 18 are not allowed." };
       ctx.status = 403;
       return;
     }
+
     db.run(query, params); //fazer uma callback para exibir o que foi atualizado?
+
     ctx.body = { message: "Data added successfully!" };
     ctx.status = 201;
   } catch (error) {
