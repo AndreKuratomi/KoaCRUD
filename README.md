@@ -40,23 +40,26 @@ git clone https://github.com/AndreKuratomi/Ozmap.git
 cd Ozmap
 ```
 
-<p>Instalar as dependências:</p>
-
-```
-npm install
-```
-
 <p>Abrir a aplicação no seu IDE:</p>
 
 ```
 code .
 ```
 
+<p>Instalar as dependências:</p>
+
+```
+npm install
+```
+
+
 <p>E rodar a aplicação:</p>
 
 ```
 npm run dev
 ```
+
+<p>A aplicação rodará com o localhost:3000. Adicionar depois deste as rotas e suas terminações, ou endpoints, que veremos a seguir.</p>
 
 <p>Para rodar os testes utilize o seguinte comando:</p>
 
@@ -81,20 +84,6 @@ PORT=port
 <b>Obs:</b> as informações contidas no arquivo <b>.env</b> não devem ser compartilhadas. O arquivo já consta no <b>.gitignore</b> para não ser subido no repositório.
 
 # Utilização
-
-<p>Antes de passarmos para o API Client precisamos rodar os containers do Docker</p>
-
-```
-docker-compose up --build
-```
-
-<p>Após isto precisamos rodar o script</p>
-
-```
-npm run dev
-```
-
-<p>A aplicação rodará com o <b>localhost:3000</b>. Adicionar depois deste as rotas e suas terminações, ou <b>endpoints</b>, que veremos a seguir.</p>
 
 <p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
 
