@@ -17,25 +17,27 @@
 
 # Descrição
 
-<p><b>KoaCRUD</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong>, o banco de dados <strong>SQLite3</strong> e o documentador de APIs <strong>Swagger</strong>.</p>
+<p><b>KoaCRUD</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa a linguagem de programação <strong>Javascript</strong>, seu framework <strong>Koa.js</strong>, o banco de dados <strong>SQLite3</strong> o documentador de APIs <strong>Swagger</strong> e as libs de teste  and the test libs <strong>Mocha</strong> e <strong>Chai</strong>.</p>
 <br>
 
 # Instalação
 
-<h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
+<h3>0. Primeiramente, é necessário já ter instalado na própria máquina:</h3>
 
 - Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</b>.
 
-- Uma <b>ferramenta cliente de API REST</b>. Por exemplo, o <b>[Insomnia](https://insomnia.rest/download)</b> ou o <b>[Postman](https://www.postman.com/product/rest-client/)</b>.
+- Uma <b>ferramenta cliente de API REST</b>. Por exemplo, o <b>[Insomnia](https://insomnia.rest/download)</b> ou o <b>[Postman](https://www.postman.com/product/rest-client/)</b>,
 
-- <p> E versionar o diretório para receber o clone da aplicação:</p>
+- O ambiente de desenvolvimento do Javascript <strong>[Node.js](https://nodejs.org/en/download/package-manager)</strong>,
+
+- E o gerenciador de pacotes do Node <strong>[NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)</strong>:
 
 ```
-git init
+npm install -g npm
 ```
 
 <br>
-<h5>1. Fazer o clone do reposítório <b>KoaCRUD</b> na sua máquina pelo terminal do computador ou pelo do IDE:</h5>
+<h3>1. Fazer o clone do reposítório <b>KoaCRUD</b> na sua máquina pelo terminal do computador ou pelo do IDE:</h3>
 
 ```
 git clone https://github.com/AndreKuratomi/KoaCRUD.git
@@ -75,7 +77,7 @@ npm test
 
 <br>
 
-<h5>2. Feitas as instalações precisamos criar nosso arquivo de variáveis de ambiente, o <strong>.env</strong>:</h5>
+<h3>2. Feitas as instalações precisamos criar nosso arquivo de variáveis de ambiente, o <strong>.env</strong>:</h3>
 
 ```
 touch .env
@@ -153,6 +155,7 @@ Status: 200 OK
 ```
 [
     {
+        "id": 1,
         "age": "32",
         "cpf": "00000000000",
         "email": "joao.silva@mail.com",
@@ -182,12 +185,25 @@ Status: 200 OK
 ```
 [
     {
+        "id": 1,
         "age": "32",
         "cpf": "00000000000",
         "email": "joao.silva@mail.com",
         "nome": "João da Silva"
     }
 ]
+```
+
+Caso o usuaŕio não seja encontrado pelo id a resposta será:
+
+```
+Status: 404 NOT FOUND
+```
+
+```
+{
+    "message": "User not found!"
+}
 ```
 
 <h4>Atualização de usuário:</h4>
@@ -227,6 +243,18 @@ Status: 404 NOT FOUND
 ```
 {
   "message": "User not found!"
+}
+```
+
+Se nem o campo "age" ou "email" forem usados a resposta esperada será:
+
+```
+Status: 400 BAD REQUEST
+```
+
+```
+{
+  ""message": "Invalid params! Must be or age or email or both!"
 }
 ```
 
