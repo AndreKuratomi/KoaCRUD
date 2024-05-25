@@ -6,6 +6,9 @@ const bodyParser = require("koa-bodyparser");
 const { koaSwagger } = require("koa2-swagger-ui");
 const paginate = require("koa-ctx-paginate");
 
+const fs = require('fs');
+const path = require('path');
+
 const router = require("./routes");
 
 dotenv.config();
@@ -23,10 +26,20 @@ koa.use(
   koaSwagger({
     routePrefix: "/swagger",
     swaggerOptions: {
-      url: "http://localhost:3000/swagger",
+      url: `http://localhost:${PORT}/swagger/openapi.yaml`,
     },
   })
 );
+
+
+koa.use(async(ctx, next) => {
+  if (ctx.path === '/swagger/openapi.yaml') {
+    ctx.type = 'yaml';
+    ctx.body = fs.createReadStream(path.join(__dirname, '../openapi.yaml'));
+  } else {
+    await next()
+  }
+});
 
 const server = koa.listen(PORT, () => {
   console.log(`Server is running at "http://localhost:${PORT}"!`);

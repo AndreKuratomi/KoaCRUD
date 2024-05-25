@@ -1,17 +1,16 @@
 openapi: 3.0.3
 info:
-  title: Ozmap
-  description: >-
-    Ozmap é uma API que faz o gerenciamento de usuários. Seus registros,
-    listagens, atualizações e deleções. Esta aplicação usa o framework Koa.js e
-    o banco de dados SQLite3.
+  title: KoaCRUD
+  description: >
+    KoaCRUD is an API that manages users, its registrations, listings, updates and deletions. 
+    This app uses the programming language Javascript, its framework Koa.js, the database SQLite3 the APIs documenter Swagger and the test libs Mocha and Chai.
   contact:
     name: API Support
     url: https://github.com/AndreKuratomi
     email: andrekuratomi@gmail.com
   version: '2.0'
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/swagger
     description: Local server
 tags:
   - name: user
@@ -29,13 +28,11 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              items:
-                $ref: '#/components/schemas/UserRegisterRequest'
+              $ref: '#/components/schemas/UserRegisterRequest'
             examples:
               user:
                 value:
-                  age: '32'
+                  age: 32
                   cpf: '00000000000'
                   email: joao.silva@mail.com
                   nome: João da Silva
@@ -66,7 +63,7 @@ paths:
                   value:
                     message:
                       ValidationError:
-                        - Missing filed 'age'!
+                        - Missing field 'age'!
         '403':
           description: Conflict
           content:
@@ -89,24 +86,21 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                type: array
                 items:
                   $ref: '#/components/schemas/UsersListResponse'
               example:
-                users:
-                  value:
-                    - id: 1
-                      age: 32
-                      cpf: '00000000000'
-                      email: joao.silva@mail.com
-                      nome: João da Silva
+                - id: 1
+                  age: 32
+                  cpf: '00000000000'
+                  email: joao.silva@mail.com
+                  nome: João da Silva
   /user/{user_id}:
     get:
       tags:
         - user
       summary: Lists a specific user by its id.
       description: Lists a specific user by its id.
-      deprecated: false
       parameters:
         - name: user_id
           in: path
@@ -119,17 +113,15 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  $ref: '#/components/schemas/OneUserListResponse'
+                $ref: '#/components/schemas/OneUserListResponse'
               examples:
                 user:
                   value:
-                    - id: 1
-                      age: 32
-                      cpf: '00000000000'
-                      email: joao.silva@mail.com
-                      nome: João da Silva
+                    id: 1
+                    age: 32
+                    cpf: '00000000000'
+                    email: joao.silva@mail.com
+                    nome: João da Silva
         '400':
           description: Bad request
           content:
@@ -137,7 +129,7 @@ paths:
               schema:
                 type: object
               examples:
-                User not found:
+                UserNotFound:
                   value:
                     message: Invalid Id! Must be a number.
         '404':
@@ -147,7 +139,7 @@ paths:
               schema:
                 type: object
               examples:
-                User not found:
+                UserNotFound:
                   value:
                     message: User not found!
         '405':
@@ -157,15 +149,14 @@ paths:
               schema:
                 type: object
               examples:
-                Method Not Allowed:
+                MethodNotAllowed:
                   value:
                     message: Method Not Allowed
     patch:
       tags:
         - user
-      summary: Updates a specific user data by its id.
-      description: Updates a specific user data by its id.
-      deprecated: false
+      summary: Updates a specific user's data by its id.
+      description: Updates a specific user's data by its id.
       parameters:
         - name: user_id
           in: path
@@ -176,9 +167,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              items:
-                $ref: '#/components/schemas/UpdateUserRequest'
+              $ref: '#/components/schemas/UpdateUserRequest'
             examples:
               product:
                 value:
@@ -199,7 +188,7 @@ paths:
               schema:
                 type: object
               examples:
-                User not found:
+                UserNotFound:
                   value:
                     message: Invalid Id! Must be a number.
         '404':
@@ -209,7 +198,7 @@ paths:
               schema:
                 type: object
               examples:
-                User not found:
+                UserNotFound:
                   value:
                     message: User not found!
         '405':
@@ -219,7 +208,7 @@ paths:
               schema:
                 type: object
               examples:
-                Method Not Allowed:
+                MethodNotAllowed:
                   value:
                     message: Method Not Allowed
     delete:
@@ -227,7 +216,6 @@ paths:
         - user
       summary: Deletes a specific user by its id.
       description: Deletes a specific user by its id.
-      deprecated: false
       parameters:
         - name: user_id
           in: path
@@ -236,7 +224,7 @@ paths:
             type: string
       responses:
         '204':
-          description: Ok
+          description: No content
         '400':
           description: Bad request
           content:
@@ -244,7 +232,7 @@ paths:
               schema:
                 type: object
               examples:
-                User not found:
+                UserNotFound:
                   value:
                     message: Invalid Id! Must be a number.
         '404':
@@ -254,7 +242,7 @@ paths:
               schema:
                 type: object
               examples:
-                User not found:
+                UserNotFound:
                   value:
                     message: No user found!
         '405':
@@ -264,7 +252,7 @@ paths:
               schema:
                 type: object
               examples:
-                Method Not Allowed:
+                MethodNotAllowed:
                   value:
                     message: Method Not Allowed
 components:
@@ -283,6 +271,8 @@ components:
     UsersListResponse:
       type: object
       properties:
+        id:
+          type: integer
         age:
           type: number
         cpf:
@@ -294,6 +284,8 @@ components:
     OneUserListResponse:
       type: object
       properties:
+        id:
+          type: integer
         age:
           type: number
         cpf:
