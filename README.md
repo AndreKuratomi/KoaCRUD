@@ -8,7 +8,7 @@
 
 <br>
 
-# Translations
+## Translations
 
 - [English](https://github.com/AndreKuratomi/KoaCRUD)
 - [Português brasileiro / Brazilian portuguese](./.multilingual_readmes/README_pt-br.md)
@@ -18,9 +18,10 @@
 # Description
 
 <p><b>KoaCRUD</b> is an API that manages users, its registrations, listings, updates and deletions. This app uses the programming language <strong>Javascript</strong>, its framework <strong>Koa.js</strong>, the database <strong>SQLite3</strong> the APIs documenter <strong>Swagger</strong> and the test libs <strong>Mocha</strong> and <strong>Chai</strong>.</p>
+
 <br>
 
-# Instalation
+## Instalation
 
 <h3>0. It is first necessary to have instaled the following devices:</h3>
 
