@@ -155,6 +155,7 @@ Status: 200 OK
 ```
 [
     {
+        "id": 1,
         "age": "32",
         "cpf": "00000000000",
         "email": "joao.silva@mail.com",
@@ -184,12 +185,25 @@ Status: 200 OK
 ```
 [
     {
+        "id": 1,
         "age": "32",
         "cpf": "00000000000",
         "email": "joao.silva@mail.com",
         "nome": "João da Silva"
     }
 ]
+```
+
+Caso o usuaŕio não seja encontrado pelo id a resposta será:
+
+```
+Status: 404 NOT FOUND
+```
+
+```
+{
+    "message": "User not found!"
+}
 ```
 
 <h4>Atualização de usuário:</h4>
@@ -229,6 +243,18 @@ Status: 404 NOT FOUND
 ```
 {
   "message": "User not found!"
+}
+```
+
+Se nem o campo "age" ou "email" forem usados a resposta esperada será:
+
+```
+Status: 400 BAD REQUEST
+```
+
+```
+{
+  ""message": "Invalid params! Must be or age or email or both!"
 }
 ```
 
