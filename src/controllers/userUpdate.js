@@ -5,6 +5,12 @@ const userUpdate = async (ctx) => {
     const { id } = ctx.params;
     const { age, email } = ctx.request.body;
 
+    if (!age && !email) {
+      ctx.body = { message: "Invalid params! Must be or age or email or both!" };
+      ctx.status = 400;
+      return
+    }
+
     // QUERIES:
     const findQuery = `SELECT * FROM users WHERE id = ${id}`;
     const updateQuery0 = "UPDATE users SET ";
