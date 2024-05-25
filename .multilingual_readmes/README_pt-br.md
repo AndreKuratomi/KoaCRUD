@@ -8,19 +8,19 @@
 
 <br>
 
-# Traduções
+## Traduções
 
 - [English](https://github.com/AndreKuratomi/KoaCRUD)
 - [Português brasileiro](./README_pt-br.md)
 
 <br>
 
-# Descrição
+## Descrição
 
 <p><b>KoaCRUD</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa a linguagem de programação <strong>Javascript</strong>, seu framework <strong>Koa.js</strong>, o banco de dados <strong>SQLite3</strong> o documentador de APIs <strong>Swagger</strong> e as libs de teste  and the test libs <strong>Mocha</strong> e <strong>Chai</strong>.</p>
 <br>
 
-# Instalação
+## Instalação
 
 <h3>0. Primeiramente, é necessário já ter instalado na própria máquina:</h3>
 
@@ -91,7 +91,7 @@ PORT=port
 
 <b>Obs:</b> as informações contidas no arquivo <b>.env</b> não devem ser compartilhadas. O arquivo já consta no <b>.gitignore</b> para não ser subido no repositório.
 
-# Utilização
+## Utilização
 
 <p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
 
@@ -296,11 +296,11 @@ Status: 404 NOT FOUND
 
 Exibição da documentação da API via Swagger: <b>/swagger</b> (ou localhost:3000/swagger)
 
-# Termos de uso
+## Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
 
-# Referências
+## Referências
 
 - [Koa.js](https://koajs.com/)
 - [Node.js](https://nodejs.org/en/)
