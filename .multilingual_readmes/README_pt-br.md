@@ -1,26 +1,26 @@
 ## KoaCRUD
 
-- [Description](#description)
-- [Instalation](#instalation)
-- [How to use](#how-to-use)
-- [Terms of use](#terms-of-use)
-- [References](#references)
+- [Descrição](#descrição)
+- [Instalação](#instalação)
+- [Utilização](#utilização)
+- [Termos de uso](#termos-de-uso)
+- [Referências](#referências)
 
 <br>
 
-# Translations
+# Traduções
 
 - [English](https://github.com/AndreKuratomi/KoaCRUD)
-- [Português brasileiro / Brazilian portuguese](./multilingual_readmes/README_pt-br.md)
+- [Português brasileiro](./README_pt-br.md)
 
 <br>
 
-# Description
+# Descrição
 
 <p><b>KoaCRUD</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong>, o banco de dados <strong>SQLite3</strong> e o documentador de APIs <strong>Swagger</strong>.</p>
 <br>
 
-# Instalation
+# Instalação
 
 <h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
 
@@ -89,7 +89,7 @@ PORT=port
 
 <b>Obs:</b> as informações contidas no arquivo <b>.env</b> não devem ser compartilhadas. O arquivo já consta no <b>.gitignore</b> para não ser subido no repositório.
 
-# How to use
+# Utilização
 
 <p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
 
@@ -268,11 +268,11 @@ Status: 404 NOT FOUND
 
 Exibição da documentação da API via Swagger: <b>/swagger</b> (ou localhost:3000/swagger)
 
-# Terms of use
+# Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
 
-# References
+# Referências
 
 - [Koa.js](https://koajs.com/)
 - [Node.js](https://nodejs.org/en/)
