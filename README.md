@@ -1,66 +1,106 @@
-## OZMAP
+## KoaCRUD
 
-- [Descrição](#descrição)
-- [Instalação](#instalação)
-- [Utilização](#utilização)
-- [Termos de uso](#termos-de-uso)
-- [Referências](#referências)
+- [Description](#description)
+- [Instalation](#instalation)
+- [How to use](#how-to-use)
+- [Terms of use](#terms-of-use)
+- [References](#references)
+
+<br>
+
+# Translations
+
+- [English](https://github.com/AndreKuratomi/KoaCRUD)
+- [Português brasileiro / Brazilian portuguese](./.multilingual_readmes/README_pt-br.md)
 
 <br>
 
-# Descrição
+# Description
 
-<p><b>OZMAP</b> é uma API que faz o gerenciamento de usuários. Seus registros, listagens, atualizações e deleções. Esta aplicação usa o framework <strong>Koa.js</strong>, o banco de dados <strong>SQLite3</strong> e o documentador de APIs <strong>Swagger</strong>.</p>
+<p><b>KoaCRUD</b> is an API that manages users, its registrations, listings, updates and deletions. This app uses the programming language <strong>Javascript</strong>, its framework <strong>Koa.js</strong>, the database <strong>SQLite3</strong> the APIs documenter <strong>Swagger</strong> and the test libs <strong>Mocha</strong> and <strong>Chai</strong>.</p>
 <br>
 
-# Instalação
+# Instalation
 
-<h5>0. Primeiramente, é necessário já ter instalado na própria máquina:</h5>
+<h3>0. It is first necessary to have instaled the following devices:</h3>
 
-- Um <b>editor de código</b>, conhecido também como <b>IDE</b>. Por exemplo, o <b>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</b>.
+- The code versioning <strong>[Git](https://git-scm.com/downloads)</strong>,
 
-- Uma <b>ferramenta cliente de API REST</b>. Por exemplo, o <b>[Insomnia](https://insomnia.rest/download)</b> ou o <b>[Postman](https://www.postman.com/product/rest-client/)</b>.
+- A <b>code editor</b>, also known as <b>IDE</b>. For instance, <strong>[Visual Studio Code (VSCode)](https://code.visualstudio.com/)</strong>,
 
-- <p> E versionar o diretório para receber o clone da aplicação:</p>
+- A <b> client API REST </b> program. <strong>[Insomnia](https://insomnia.rest/download)</strong> or <b>[Postman](https://www.postman.com/product/rest-client/)</b>, for instance,
+
+- Javascript's runtime enviroment <strong>[Node.js](https://nodejs.org/en/download/package-manager)</strong>,
+- And Node.js' package manager <strong>[NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)</strong>:
 
 ```
-git init
+npm install -g npm
 ```
 
 <br>
-<h5>1. Fazer o clone do reposítório <b>OZMAP</b> na sua máquina pelo terminal do computador ou pelo do IDE:</h5>
+<h3>1. Clone the repository <b>KoaCRUD</b> by your machine terminal or by the IDE:</h3>
 
 ```
-git clone https://github.com/AndreKuratomi/Ozmap.git
+git clone https://github.com/AndreKuratomi/KoaCRUD.git
 ```
 
-<p>Entrar na pasta criada:</p>
+WINDOWS:
+
+Obs: In case of any mistake similar to this one: 
 
 ```
-cd Ozmap
+unable to access 'https://github.com/AndreKuratomi/KoaCRUD.git': SSL certificate problem: self-signed certificate in certificate chain
 ```
 
-<p>Abrir a aplicação no seu IDE:</p>
+Configure git to disable SSL certification:
+
+```
+git config --global http.sslVerify "false"
+```
+
+<p>Enter the directory:</p>
+
+```
+cd KoaCRUD
+```
+<br>
+
+<p>Open your app for your IDE:</p>
 
 ```
 code .
 ```
 
-<p>Instalar as dependências:</p>
+<p>Install its dependencies:</p>
 
 ```
 npm install
 ```
+WINDOWS:
 
-<p>E rodar a aplicação:</p>
+In case any error similar to the one bellow be returned:
+
+```
+ERROR: Could not install packages due to an OSError: [Errno 2] No such file or directory: 'C:\\Users\\KoaCRUD\\lorem\\ipsum\\dolor\\etc'
+HINT: This error might have occurred since this system does not have Windows Long Path support enabled. You can find information on how to enable this at https://pip.pypa.io/warnings/enable-long-paths
+```
+
+Run cmd as adminstrador with the following command:
+
+```
+reg.exe add HKLM\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled /t REG_DWORD /d 1 /f
+```
+<br>
+
+<p>And run the application:</p>
 
 ```
 npm run dev
 ```
 
-<p>A aplicação rodará com o localhost:3000. Adicionar depois deste as rotas e suas terminações, ou endpoints, que veremos a seguir.</p>
+<p>The app will run with local server localhost:<your-port> or the default port 3000. Write after it the application routes or endpoint's as we are going to see bellow.</p>
 
-<p>Para rodar os testes utilize o seguinte comando:</p>
+<p>For running the app's tests use the following command:</p>
 
 ```
 npm test
@@ -68,31 +108,32 @@ npm test
 
 <br>
 
-<h5>2. Feitas as instalações precisamos criar nosso arquivo de variáveis de ambiente, o <strong>.env</strong>:</h5>
+<h3>2. After everything installed we need to create our enviroment variable <strong>.env</strong>:</h3>
 
 ```
 touch .env
 ```
 
-Dentro dele precisamos definir nossa variável de ambiente:
+Inside it we need to define our enviroment variable PORT:
 
 ```
 PORT=port
 ```
 
-<b>Obs:</b> as informações contidas no arquivo <b>.env</b> não devem ser compartilhadas. O arquivo já consta no <b>.gitignore</b> para não ser subido no repositório.
+<b>Obs:</b> the <b>.env</b> infos cannot be shared! The arquive is already at <b>.gitignore</b> for not being pushed to the repository.
 
-# Utilização
 
-<p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
+# How to use 
 
-<h3>Rotas</h3>
+<p>After everything is well installed use your API Client for the following routes:</p>
 
-<h4>Cadastro:</h4>
+<h3>Routes</h3>
 
-Cadastro de usuários (Método POST): <b>/user</b> (ou localhost:3000/user)
+<h4>Registration:</h4>
 
-Exemplo a ser colocado no body da requisição:
+User Registration (POST method): <b>/user</b> (or localhost:3000/user)
+
+Example to be used as requisition body:
 
 ```
 {
@@ -103,7 +144,7 @@ Exemplo a ser colocado no body da requisição:
 }
 ```
 
-E a resposta esperada:
+And the expected response:
 
 ```
 Status: 201 CREATED
@@ -115,7 +156,7 @@ Status: 201 CREATED
 }
 ```
 
-Caso seja registrado um usuário menor de idade a resposta esperada deverá ser:
+In case of underage user registration the expected answer must be:
 
 ```
 Status: 403 UNAUTHORIZED
@@ -127,46 +168,17 @@ Status: 403 UNAUTHORIZED
 }
 ```
 
-<h4>Listagem de usuários:</h4>
+<h4>User listing:</h4>
 
-Listagem dos usuários cadastrados (Método GET): <b>/users</b> (ou localhost:3000/users)
+Registered users listing (GET method): <b>/users</b> (or localhost:3000/users)
 
-Exemplo a ser colocado no body da requisição:
-
-```
-(Requisição feita sem body)
-```
-
-Resposta esperada:
+Example to be used as requisition body:
 
 ```
-Status: 200 OK
+(No body requisition)
 ```
 
-```
-[
-    {
-        "age": "32",
-        "cpf": "00000000000",
-        "email": "joao.silva@mail.com",
-        "nome": "João da Silva"
-    }
-]
-```
-
-<h4>Listagem de usuário por id:</h4>
-
-Listagem dos dados de um usuário (Método GET): <b>/user/id**</b> (ou localhost:3000/users/id**)
-
-\*\*preencher com o id do usuário anteriormente cadastrado.
-
-Exemplo a ser colocado no body da requisição:
-
-```
-(Requisição feita sem body)
-```
-
-E a resposta esperada:
+And the expected response:
 
 ```
 Status: 200 OK
@@ -183,15 +195,44 @@ Status: 200 OK
 ]
 ```
 
-<h4>Atualização de usuário:</h4>
+<h4>User listing by id:</h4>
 
-Atualização de dados do usuário cadastrado (Método PATCH): <b>/user/id**</b> (ou localhost:3000/users/id**)
+User listing data (GET method): <b>/user/id**</b> (ou localhost:3000/users/id**)
 
-\*\*preencher com o id do usuário anteriormente cadastrado.
+\*\*fill with the previously registerd user id.
 
-Apenas os campos 'age' e 'email' podem ser alterados.
+Example to be used as requisition body:
 
-Exemplo a ser colocado no body da requisição:
+```
+(No body requisition)
+```
+
+And the expected response:
+
+```
+Status: 200 OK
+```
+
+```
+[
+    {
+        "age": "32",
+        "cpf": "00000000000",
+        "email": "joao.silva@mail.com",
+        "nome": "João da Silva"
+    }
+]
+```
+
+<h4>User update:</h4>
+
+User data update (PATCH method): <b>/user/id**</b> (or localhost:3000/users/id**)
+
+\*\*fill with the previously registerd user id.
+
+Only the 'age' and 'email' fields can be updated.
+
+Example to be used as requisition body:
 
 ```
 {
@@ -199,7 +240,7 @@ Exemplo a ser colocado no body da requisição:
 }
 ```
 
-Caso o id do usuário esteja registrado no SQLite a resposta será:
+In case the user is already registered in SQLite the response will be:
 
 ```
 Status: 200 OK
@@ -211,7 +252,7 @@ Status: 200 OK
 }
 ```
 
-Caso contrário a resposta será:
+Otherwise the response will be:
 
 ```
 Status: 404 NOT FOUND
@@ -223,29 +264,29 @@ Status: 404 NOT FOUND
 }
 ```
 
-<h4>Deleção de usuário:</h4>
+<h4>User deletion:</h4>
 
-Deleção de usuário cadastrado (Método DELETE): <b>/user/id**</b> (ou localhost:3000/users/id**)
+User registered deletion (DELETE method): <b>/user/id**</b> (or localhost:3000/users/id**)
 
-\*\*preencher com o id do usuário anteriormente cadastrado.
+\*\*fill with the previously registerd user id.
 
-Exemplo a ser colocado no body da requisição:
+Example to be used as requisition body:
 
 ```
-(Requsição feita sem body)
+(No body requisition)
 ```
 
-Caso o id do usuário esteja registrado no SQLite a resposta será:
+In case the user is already registered in SQLite the response will be:
 
 ```
 Status: 204 NO CONTENT
 ```
 
 ```
-(Resposta feita sem body)
+(No body requisition)
 ```
 
-Caso contrário a resposta será:
+Otherwise the response will be:
 
 ```
 Status: 404 NOT FOUND
@@ -259,22 +300,23 @@ Status: 404 NOT FOUND
 
 <h4>Swagger:</h4>
 
-Exibição da documentação da API via Swagger: <b>/swagger</b> (ou localhost:3000/swagger)
+API documentation by Swagger: <b>/swagger</b> (or localhost:3000/swagger)
 
-# Termos de uso
+# Terms of use
 
-<p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
+<p>This API is only for didatic purposes, not commercial.</p>
 
-# Referências
+# References
 
-- [Koa.js](https://koajs.com/)
-- [Node.js](https://nodejs.org/en/)
-- [SQLite3](https://www.sqlite.org/index.html)
-- [Mocha](https://mochajs.org/api/mocha)
 - [Chai](https://www.chaijs.com/guide/)
-- [Nodemon](https://nodemon.io/)
-- [Swagger](https://editor.swagger.io/)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Koa.js](https://koajs.com/)
+- [Mocha](https://mochajs.org/api/mocha)
+- [Node.js](https://nodejs.org/en/)
+- [Nodemon](https://nodemon.io/)
+- [NPM](https://www.npmjs.com/)
+- [SQLite3](https://www.sqlite.org/index.html)
+- [Swagger](https://editor.swagger.io/)
 
 <!--O objetivo do projeto é:
 
@@ -289,7 +331,7 @@ Não é necessáriA nenhuma interface gráfica para este projeto. Tudo será tes
 ● Como bônus, pode ser criada uma interface básica em HTML5 ou algum framework web para frontend de sua escolha.(Não é necessário, é bônus).
 ● Como bônus, poderá ser adicionado uma documentação da API, usando Open-API3 ou Swagger: https://editor.swagger.io/
 
-Se você tiver dúvidas sobre o desenvolvimento do teste, encaminhe um e-mail para silvia.guerreiro@ozmap.com.br
+Se você tiver dúvidas sobre o desenvolvimento do teste, encaminhe um e-mail para silvia.guerreiro@KoaCRUD.com.br
 
 DAS AVALIAÇÕES
 
