@@ -15,7 +15,7 @@
 
 <br>
 
-# Description
+## Description
 
 <p><b>KoaCRUD</b> is an API that manages users, its registrations, listings, updates and deletions. This app uses the programming language <strong>Javascript</strong>, its framework <strong>Koa.js</strong>, the database <strong>SQLite3</strong> the APIs documenter <strong>Swagger</strong> and the test libs <strong>Mocha</strong> and <strong>Chai</strong>.</p>
 
@@ -124,7 +124,7 @@ PORT=port
 <b>Obs:</b> the <b>.env</b> infos cannot be shared! The arquive is already at <b>.gitignore</b> for not being pushed to the repository.
 
 
-# How to use 
+## How to use 
 
 <p>After everything is well installed use your API Client for the following routes:</p>
 
@@ -303,11 +303,11 @@ Status: 404 NOT FOUND
 
 API documentation by Swagger: <b>/swagger</b> (or localhost:3000/swagger)
 
-# Terms of use
+## Terms of use
 
 <p>This API is only for didatic purposes, not commercial.</p>
 
-# References
+## References
 
 - [Chai](https://www.chaijs.com/guide/)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
