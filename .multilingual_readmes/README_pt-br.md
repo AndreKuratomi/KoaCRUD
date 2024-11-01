@@ -10,8 +10,8 @@
 
 ## Traduções
 
-- [English](https://github.com/AndreKuratomi/KoaCRUD)
-- [Português brasileiro](./README_pt-br.md)
+- [🇬🇧 / 🇺🇸 English](https://github.com/AndreKuratomi/KoaCRUD)
+- [🇧🇷 Português brasileiro](./README_pt-br.md)
 
 <br>
 
