@@ -11,7 +11,7 @@
 ## Translations
 
 - [🇬🇧 / 🇺🇸 English](https://github.com/AndreKuratomi/KoaCRUD)
-- [Português brasileiro / Brazilian portuguese](./.multilingual_readmes/README_pt-br.md)
+- [🇧🇷 Português brasileiro / Brazilian portuguese](./.multilingual_readmes/README_pt-br.md)
 
 <br>
 
