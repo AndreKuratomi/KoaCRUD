@@ -1,4 +1,11 @@
-const app = require("../src/index");
+const Koa = require("koa");
+const router = require("../src/routes");
+
+const assert = require("assert");
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const chaiJson = require("chai-json-schema");
+
 const {
   userSchema,
   raulFound,
@@ -6,19 +13,35 @@ const {
   deVozTeamWithoutRaupp,
 } = require("./samples");
 
-const assert = require("assert");
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const chaiJson = require("chai-json-schema");
+const {
+  testServerPort
+} = require("../utils/envs");
+
+const {
+  testDb, 
+  initializeTestDb
+} = require("./config/testDb");
 
 chai.use(chaiHttp);
 chai.use(chaiJson);
 
 const expect = chai.expect;
-const server = app.server;
+const koa = new Koa()
 
-//TESTES PRELIMINARES:
+koa.use(router.routes()).use(router.allowedMethods());
+
+// TESTES PRELIMINARES:
 describe("Um simples conjunto de testes sobre 'userSchema'.", function () {
+  before(() => {
+    testServer = koa.listen(testServerPort, () => {
+      console.log(`Test server running on port "http://localhost:${testServerPort}"!`);
+    });
+  })
+
+  after(() => {
+    testServer.close();
+  })
+  
   it("deveria retornar o tipo da variável", function () {
     assert.equal(typeof userSchema, "object");
   });
@@ -41,10 +64,25 @@ describe("Um simples conjunto de testes sobre 'userSchema'.", function () {
 
 //TESTES DA APLICAÇÃO:
 describe("Testes da aplicação", () => {
+  before(() => {
+    initializeTestDb();
+    testServer = koa.listen(testServerPort, () => {
+      console.log(`Test server running on port "http://localhost:${testServerPort}"!`);
+    });
+  });
+
+  after(() => {
+    testDb.close();
+    testServer.close();
+  });
+
+  // beforeEach(async () => { // reinitializes the test database before each individual test case
+  //   await initializeTestDb();
+  // });
+
   it("o servidor está online", function (done) {
     chai
-      .request(server)
-      .keepOpen()
+      .request(testServer)
       .get("/users")
       .end(function (err, res) {
         assert.equal(err, null);
@@ -55,84 +93,62 @@ describe("Testes da aplicação", () => {
 
   it("deveria haver uma lista vazia de usuários", function (done) {
     chai
-      .request(server)
-      .keepOpen()
+      .request(testServer)
       .get("/users")
       .end(function (err, res) {
         expect(err, null);
-        expect(res.status, 200);
-        expect(res.body.rows, []);
+        expect(res.status).to.equal(200);
+        expect(res.body).to.be.an('array').that.is.empty;
         done();
       });
   });
 
   it("deveria criar os usuários deVoz", function (done) {
-    chai
-      .request(server)
-      .keepOpen()
-      .post("/user")
-      .send({
-        nome: "Raupp",
-        cpf: "00000000001",
-        email: "jose.raupp@devoz.com.br",
-        age: 35,
-      })
-      .send({
-        nome: "Estévez",
-        cpf: "00000000002",
-        email: "antonio.estevez@devoz.com.br",
-        age: 53,
-      })
-      .send({
-        nome: "Scielsi",
-        cpf: "00000000003",
-        email: "giacinto.scielsi@devoz.com.br",
-        age: 85,
-      })
-      .send({
-        nome: "Grisey",
-        cpf: "00000000004",
-        email: "gerard.grisey@devoz.com.br",
-        age: 38,
-      })
-      .send({
-        nome: "Murail",
-        cpf: "00000000005",
-        email: "tristan.murail@devoz.com.br",
-        age: 46,
-      })
-      .end(function (err, res) {
-        expect(err, null);
-        expect(res.body.message, "Data added successfully!");
-        expect(res.status, 201);
-        done();
+    
+    let requests = deVozTeamWithRaupp.map(user => 
+      chai
+        .request(testServer)
+        .keepOpen()
+        .post("/user")
+        .send(user)
+    );
+    // console.log(requests)
+    Promise.all(requests).then(responses => {
+      responses.forEach(res => {
+        console.log(res.body.message)
+        expect(res.body.message).to.equal("Data added succesfully!");
+        expect(res.status).to.equal(201);
       });
+      done();
+    }).catch(err => {
+      done(err);
+    });
   });
 
   it("deveria haver uma lista com pelo menos 5 usuários", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .get("/users")
       .end(function (err, res) {
         expect(err, null);
         expect(res.status, 200);
         expect(res.body, deVozTeamWithRaupp);
-        expect(res.body.length, 5);
+        expect(res.body.length, 6);
         done();
       });
   });
 
   it("deveria bloquear o cadastro do usuário Joãozinho", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .post("/user")
       .send({
         nome: "Joãozinho",
         cpf: "00000000006",
         email: "joaozinho@devoz.com.br",
-        age: 8,
+        age: 80,
       })
       .end(function (err, res) {
         expect(err, null);
@@ -147,7 +163,7 @@ describe("Testes da aplicação", () => {
 
   it("o usuário 'Joãozinho' não existe no sistema", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .get("/user/6")
       .end(function (err, res) {
@@ -159,7 +175,7 @@ describe("Testes da aplicação", () => {
 
   it("o usuário 'naoExiste' também não existe no sistema", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .get("/user/naoExiste")
       .end(function (err, res) {
@@ -171,7 +187,7 @@ describe("Testes da aplicação", () => {
 
   it("o usuário raupp existe e é valido", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .get("/user/1")
       .end(function (err, res) {
@@ -184,7 +200,7 @@ describe("Testes da aplicação", () => {
 
   it("atualiza a idade de Estévez", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .patch("/user/2")
       .send({
@@ -202,7 +218,7 @@ describe("Testes da aplicação", () => {
     let awaitFunction = async function () {
       await new Promise(
         chai
-          .request(server)
+          .request(testServer)
           .keepOpen()
           .get("/users/2")
           .then(function (err, res) {
@@ -216,7 +232,7 @@ describe("Testes da aplicação", () => {
 
   it("deveria excluir o usuário raupp", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .delete("/user/1")
       .end(function (err, res) {
@@ -228,7 +244,7 @@ describe("Testes da aplicação", () => {
 
   it("o usuário raupp não deve existir mais no sistema", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .get("/user/1")
       .end(function (err, res) {
@@ -241,7 +257,7 @@ describe("Testes da aplicação", () => {
 
   it("agora deveria ser uma lista com pelo menos 4 usuários", function (done) {
     chai
-      .request(server)
+      .request(testServer)
       .keepOpen()
       .get("/users")
       .end(function (err, res) {
