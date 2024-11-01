@@ -1,9 +1,24 @@
 const db = require("../config/db");
+const testDb = require("../../test/config/testDb");
+
+const {apiServerPort, testServerPort} =  require("../../utils/envs")
 
 const userCreation = async (ctx) => {
   try {
-    const { nome, cpf, email, age } = ctx.request.body;
+    const host = ctx.request.header.host;
+    const port  = host.substring(host.indexOf(':') + 1);
+  
+    let dbUsed = "users";
+    let whatDb = db;
+  
+    if (port === testServerPort) {
+      dbUsed = "test_users"
+      whatDb = testDb
+      // console.log("database:", whatDb)
+    }
 
+    const { nome, cpf, email, age } = ctx.request.body || {};
+  
     // VALIDATION
     if (!age) {
       ctx.body = 'Missing field "age"!';
@@ -24,7 +39,7 @@ const userCreation = async (ctx) => {
     }
 
     const query =
-      "INSERT INTO users (age, cpf, email, nome) VALUES (?, ?, ?, ?)";
+      `INSERT INTO ${dbUsed} (age, cpf, email, nome) VALUES (?, ?, ?, ?)`;
 
     const params = [age, cpf, email, nome];
     if (age < 18) {
@@ -33,7 +48,20 @@ const userCreation = async (ctx) => {
       return;
     }
 
-    db.run(query, params);
+    await new Promise((resolve, reject) => {
+      whatDb.run(query, params, function(err) {
+        if (err) {
+          console.error("Error executing query on testDb: ", err);
+          reject(err);
+          ctx.body = err;
+          ctx.status = 400;
+        } else {
+          resolve(this);
+        }
+      });
+    });
+    // console.log(db)
+    // db.run(query, params);
 
     ctx.body = { message: "Data added successfully!" };
     ctx.status = 201;

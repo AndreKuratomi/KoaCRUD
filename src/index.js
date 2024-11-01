@@ -13,7 +13,8 @@ const router = require("./routes");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const API_PORT = process.env.API_PORT;
+
 const koa = new Koa();
 
 koa.use(cors());
@@ -22,11 +23,13 @@ koa.use(paginate.middleware(10, 20));
 
 koa.use(router.routes()).use(router.allowedMethods());
 
+
+// SWAGGER:
 koa.use(
   koaSwagger({
     routePrefix: "/swagger",
     swaggerOptions: {
-      url: `http://localhost:${PORT}/swagger/openapi.yaml`,
+      url: `http://localhost:${API_PORT}/swagger/openapi.yaml`,
     },
   })
 );
@@ -41,8 +44,8 @@ koa.use(async(ctx, next) => {
   }
 });
 
-const server = koa.listen(PORT, () => {
-  console.log(`Server is running at "http://localhost:${PORT}"!`);
+const server = koa.listen(API_PORT, () => {
+  console.log(`API Server is running at "http://localhost:${API_PORT}"!`);
 });
 
 module.exports = { server };
